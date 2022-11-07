@@ -1,1 +1,1 @@
-export const BASE_USL = 'http://localhost:3001/api';
+export const BASE_USL = 'https://demo-nestjs-z.herokuapp.com/api';
