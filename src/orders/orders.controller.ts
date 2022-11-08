@@ -21,8 +21,7 @@ export class OrdersController {
 
   @Post()
   async create(@Body() orderData: Order) {
-    console.log(orderData);
-    await this.ordersService.createBill(orderData);
+    return await this.ordersService.createBill(orderData);
   }
 
   @Get()
@@ -35,13 +34,14 @@ export class OrdersController {
   @Get('user')
   async getByUsername(
     @Query('username') username: string,
-    paginationProp: PagiantionProp,
+    @Query() paginationProp: PagiantionProp,
   ): Promise<DataList<Order[]>> {
+    console.log(paginationProp);
     return this.ordersService.findByUserName(username, paginationProp);
   }
 
-  @Delete(':id')
-  async delete(@Param('id') id: string) {
+  @Delete()
+  async delete(@Query('id') id: string) {
     return this.ordersService.delete(id);
   }
 }
