@@ -19,9 +19,13 @@ export class OrdersService {
 
   async createBill(order: OrdersData): Promise<DataApi<Order>> {
     try {
+      console.log(order);
       // const orderDetails = order.orderDetails;
       // delete order.orderDetails;
       order.createAt = new Date(Date.now());
+      if (order['_id']) {
+        delete order['_id'];
+      }
       // order.orderDetails.forEach
       const createOrder = await this.orderModel.create(order);
       // if (createOrder) {
@@ -29,9 +33,12 @@ export class OrdersService {
       //     orderDetails[i].idOrder = createOrder._id;
       //     await this.orderDetaisService.create(orderDetails[i]);
       //   }
-      // }
+
+      console.log(new DataApi(createOrder));
       return new DataApi(createOrder);
     } catch (e) {
+      // }
+      console.log(e);
       return new DataApi(null, false, e);
     }
   }
@@ -68,7 +75,7 @@ export class OrdersService {
 
     const result = await this.orderModel
       .find({
-        name: { $regex: searchValue },
+        username: username,
       })
       .skip((page - 1) * limit)
       .limit(limit);
