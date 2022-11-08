@@ -18,6 +18,7 @@ export class AccountsService {
   ) {}
 
   async createAccount(account: Account, author = 'user') {
+    console.log(author);
     const createdAccount = await this.accountModel.create({
       ...account,
       author: author,

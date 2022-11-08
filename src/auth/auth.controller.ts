@@ -35,7 +35,7 @@ export class AuthController {
   async registerByAdmin(@Body() account: Account) {
     console.log(account, account.author);
 
-    return this.authService.register(account);
+    return this.authService.registerByAdmin(account, account.author);
   }
 
   @UseGuards(JwtAuthGuard)

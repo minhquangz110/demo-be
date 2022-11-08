@@ -22,9 +22,7 @@ export class AuthService {
   async validateUser(username: string, pass: string): Promise<any> {
     const user = await this.accountsService.findByUserName(username);
 
-    const hashPassword = await this.hashPassword(pass);
-
-    if (user && (await this.doesPasswordMatch(pass, hashPassword))) {
+    if (user && (await this.doesPasswordMatch(pass, user.password))) {
       user.password = undefined;
       return user;
     }
@@ -43,17 +41,24 @@ export class AuthService {
     const existingUserName = await this.accountsService.findByUserName(
       account.username,
     );
+    if (!account.password) {
+      account.password = '12345678';
+    }
     if (existingUserName) {
       return new DataApi(null, false, 'Tài khoản đã tồn tại');
     }
     const hashedPassword = await this.hashPassword(account.password);
     account.password = hashedPassword;
+
     await this.accountsService.createAccount(account, author);
     return new DataApi(
       await this.accountsService.findByUserName(account.username),
     );
   }
   async registerByAdmin(account: Account, author = 'user') {
-    this.register(account, author);
+    console.log(author);
+    const res = await this.register(account, author);
+    console.log(res.data);
+    return res;
   }
 }
