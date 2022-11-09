@@ -9,9 +9,12 @@ export class AppService {
     }, 500000);
   }
 
+  getHello() {
+    return 'Hello';
+  }
   pingHeroku() {
     const api = this.httpService.get(
-      `https://demo-antd-t71a.vercel.app/main/products/6365e68b1db222f38edd37a5`,
+      `https://demo-nestjs-z.herokuapp.com/api/api`,
     );
     return lastValueFrom(api);
   }
