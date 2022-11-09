@@ -11,7 +11,7 @@ export class AppService {
 
   pingHeroku() {
     const api = this.httpService.get(
-      `https://demo-nestjs-z.herokuapp.com/products`,
+      `https://demo-antd-t71a.vercel.app/main/products/6365e68b1db222f38edd37a5`,
     );
     return lastValueFrom(api);
   }
