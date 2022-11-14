@@ -6,7 +6,7 @@ export class AppService {
   constructor(private httpService: HttpService) {
     setInterval(() => {
       this.pingHeroku();
-    }, 500000);
+    }, 200000);
   }
 
   getHello() {
