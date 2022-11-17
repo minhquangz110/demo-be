@@ -28,17 +28,17 @@ export class ProductsService {
 
     const count = await this.productModel
       .find({
-        name: { $regex: searchValue },
+        name: { $regex: new RegExp(searchValue, 'i') },
       })
       .count();
 
     const result = await this.productModel
       .find({
-        name: { $regex: searchValue },
+        name: { $regex: new RegExp(searchValue, 'i') },
       })
       .skip((page - 1) * limit)
       .limit(limit);
-
+    console.log(result);
     return new DataList(result, count);
   }
 

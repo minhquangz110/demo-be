@@ -28,9 +28,18 @@ export class AuthService {
     }
     return null;
   }
+  async getProfile(username: string) {
+    const user = await this.accountsService.findByUserName(username);
+    if (user) {
+      user.password = undefined;
+      return new DataApi(user);
+    } else {
+      return new DataApi(null, false, 'user không tồn tài');
+    }
+  }
   async login(user: any) {
     if (user.name) {
-      const payload = { payload: user, sub: user.userId };
+      const payload = { username: user.username, sub: user.userId };
 
       return new DataApi(this.jwtService.sign(payload));
     } else {
@@ -56,7 +65,6 @@ export class AuthService {
     );
   }
   async registerByAdmin(account: Account, author = 'user') {
-    console.log(author);
     const res = await this.register(account, author);
     console.log(res.data);
     return res;

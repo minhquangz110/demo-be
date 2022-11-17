@@ -40,8 +40,8 @@ export class AuthController {
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  getProfile(@Request() req) {
+  async getProfile(@Request() req) {
     console.log(req.user);
-    return req.user;
+    return await this.authService.getProfile(req.user.username);
   }
 }

@@ -10,7 +10,7 @@ import {
   Res,
   UseInterceptors,
 } from '@nestjs/common';
-import { UploadedFiles } from '@nestjs/common/decorators';
+import { Req, UploadedFiles, UseGuards } from '@nestjs/common/decorators';
 
 import { FilesInterceptor } from '@nestjs/platform-express/multer';
 import { diskStorage } from 'multer';
@@ -23,6 +23,7 @@ import { AccountsService } from './accounts.service';
 
 import { Account } from './schemas/accounts.schema';
 import { DataList } from 'src/types/dataList';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Controller('accounts')
 export class AccountsController {
@@ -39,6 +40,7 @@ export class AccountsController {
   ): Promise<DataList<Account[]>> {
     return this.accountsService.getAccounts(paginationProp);
   }
+  @UseGuards(JwtAuthGuard)
   @Put()
   async update(
     @Body('_id') _id: string,
