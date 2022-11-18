@@ -13,9 +13,7 @@ export class AppService {
     return 'Hello';
   }
   pingHeroku() {
-    const api = this.httpService.get(
-      `https://demo-nestjs-z.herokuapp.com/api/api`,
-    );
+    const api = this.httpService.get(`https://demo-be.onrender.com/api`);
     return lastValueFrom(api);
   }
 }
