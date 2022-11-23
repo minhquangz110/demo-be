@@ -36,7 +36,6 @@ export class OrdersController {
     @Query('username') username: string,
     @Query() paginationProp: PagiantionProp,
   ): Promise<DataList<Order[]>> {
-    console.log(paginationProp);
     return this.ordersService.findByUserName(username, paginationProp);
   }
 

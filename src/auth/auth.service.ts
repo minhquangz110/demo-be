@@ -66,7 +66,7 @@ export class AuthService {
   }
   async registerByAdmin(account: Account, author = 'user') {
     const res = await this.register(account, author);
-    console.log(res.data);
+
     return res;
   }
 }

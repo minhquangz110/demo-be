@@ -13,7 +13,9 @@ export class AppService {
     return 'Hello';
   }
   pingHeroku() {
-    const api = this.httpService.get(`https://demo-be.onrender.com/api`);
+    const api = this.httpService.get(
+      `https://demo-be.onrender.com/api/products`,
+    );
     return lastValueFrom(api);
   }
 }

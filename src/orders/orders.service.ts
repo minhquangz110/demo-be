@@ -19,7 +19,6 @@ export class OrdersService {
 
   async createBill(order: OrdersData): Promise<DataApi<Order>> {
     try {
-      console.log(order);
       // const orderDetails = order.orderDetails;
       // delete order.orderDetails;
       order.createAt = new Date(Date.now());
@@ -34,11 +33,10 @@ export class OrdersService {
       //     await this.orderDetaisService.create(orderDetails[i]);
       //   }
 
-      console.log(new DataApi(createOrder));
       return new DataApi(createOrder);
     } catch (e) {
       // }
-      console.log(e);
+
       return new DataApi(null, false, e);
     }
   }

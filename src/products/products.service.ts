@@ -38,7 +38,7 @@ export class ProductsService {
       })
       .skip((page - 1) * limit)
       .limit(limit);
-    console.log(result);
+
     return new DataList(result, count);
   }
 
