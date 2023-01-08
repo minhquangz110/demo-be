@@ -16,7 +16,7 @@ import { FilesInterceptor } from '@nestjs/platform-express/multer';
 import { diskStorage } from 'multer';
 import { extname, join } from 'path';
 import { Observable, of } from 'rxjs';
-import { BASE_USL } from 'src/constants';
+import { BASE_HOST } from 'src/constants';
 import { DataApi } from 'src/types/dataApi';
 import { PagiantionProp } from 'src/request/paginationProp';
 import { AccountsService } from './accounts.service';
@@ -73,7 +73,7 @@ export class AccountsController {
     const paths = [];
 
     files.forEach((file) => {
-      paths.push(`${BASE_USL}/accounts/${file.filename}`);
+      paths.push(`${BASE_HOST}/accounts/${file.filename}`);
     });
     return new DataApi(paths);
   }

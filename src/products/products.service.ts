@@ -24,7 +24,12 @@ export class ProductsService {
   async getProducts(
     paginationProp: PagiantionProp,
   ): Promise<DataList<Product[]>> {
-    const { page = 1, limit = 10, searchValue = '' } = paginationProp;
+    const {
+      page = 1,
+      limit = 10,
+      searchValue = '',
+      sortPrice,
+    } = paginationProp;
 
     const count = await this.productModel
       .find({
@@ -32,13 +37,16 @@ export class ProductsService {
       })
       .count();
 
-    const result = await this.productModel
-      .find({
-        name: { $regex: new RegExp(searchValue, 'i') },
-      })
-      .skip((page - 1) * limit)
-      .limit(limit);
+    const queryBulder = this.productModel.find({
+      name: { $regex: new RegExp(searchValue, 'i') },
+    });
+    const sort = parseInt(sortPrice);
+    if (sort === 1 || sort === -1) {
+      queryBulder.sort({ price: sort });
+    }
+    queryBulder.skip((page - 1) * limit).limit(limit);
 
+    const result = await queryBulder;
     return new DataList(result, count);
   }
 
